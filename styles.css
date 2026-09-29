@@ -1,0 +1,1035 @@
+/* Group Availability Mockup — base styles.
+   Views are populated by the view modules in src/views/. */
+
+:root {
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-border: #d9dde3;
+  --color-text: #1f2933;
+  --color-muted: #6b7280;
+  --color-accent: #2563eb;
+  --color-active: #15803d;
+  --color-inactive: #9ca3af;
+  --radius: 8px;
+  --spacing: 16px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Portal (dashboard) palette. */
+  --sidebar-bg: #1c2230;
+  --sidebar-bg-hover: #262d3d;
+  --brand-red: #c0392b;
+  --brand-red-strong: #d32f2f;
+  --sidebar-width: 230px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Full-width app root (the dashboard spans the whole viewport). The group
+   availability views constrain their own width via their container classes. */
+#app {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Group availability views — readable centered layout on a full-width page.
+   These preserve the original look now that #app is no longer max-width limited.
+   --------------------------------------------------------------------------- */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-header__back {
+  font: inherit;
+  cursor: pointer;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 6px 12px;
+}
+
+.app-header__back:hover {
+  background: var(--color-bg);
+}
+
+.app-header__identity {
+  font-weight: 600;
+}
+
+.app-header__sign-out {
+  margin-left: auto;
+  font: inherit;
+  cursor: pointer;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 6px 12px;
+}
+
+.app-header__sign-out:hover {
+  background: var(--color-bg);
+}
+
+.app-content,
+.login-view,
+.group-list-view,
+.group-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing);
+}
+
+/* In-portal variants: when the group feature is hosted inside the portal main
+   (.dash-main), the in-feature header and content region become full-width
+   bars matching the dashboard layout rather than the centered standalone look
+   above. These more-specific rules override the fallbacks. */
+.dash-main .app-header {
+  max-width: none;
+  margin: 0;
+  padding: 12px 32px;
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dash-main .app-content {
+  max-width: none;
+  margin: 0;
+  padding: 24px 32px;
+}
+
+/* ---------------------------------------------------------------------------
+   Dashboard (portal mockup)
+   --------------------------------------------------------------------------- */
+.dash-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Sidebar --------------------------------------------------------------- */
+.dash-sidebar {
+  position: relative;
+  flex: 0 0 var(--sidebar-width);
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  color: #e6e9ef;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 12px 64px;
+}
+
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 20px;
+}
+
+.dash-brand__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--brand-red-strong);
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+
+.dash-brand__title {
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.dash-brand__subtitle {
+  font-size: 11px;
+  color: #9aa3b2;
+  margin-top: 2px;
+}
+
+.dash-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #cbd2df;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dash-nav-item:hover {
+  background: var(--sidebar-bg-hover);
+  color: #fff;
+}
+
+.dash-nav-item--active,
+.dash-nav-item--active:hover {
+  background: var(--brand-red);
+  color: #fff;
+}
+
+.dash-nav-item__icon {
+  width: 20px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.dash-nav-item__label {
+  flex: 1;
+}
+
+.dash-sidebar__fab {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--brand-red-strong);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Main area ------------------------------------------------------------- */
+.dash-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+/* Topbar ---------------------------------------------------------------- */
+.dash-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 10px 20px;
+}
+
+.dash-topbar__hamburger {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 4px 8px;
+}
+
+.dash-topbar__helper {
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+}
+
+.dash-topbar__helper-line {
+  font-size: 12px;
+  color: var(--color-active);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-topbar__helper-line--muted {
+  color: var(--color-muted);
+}
+
+.dash-topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dash-topbar__lang {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.dash-topbar__bell {
+  position: relative;
+  border: 0;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.dash-topbar__bell-badge {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--brand-red-strong);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dash-topbar__user {
+  text-align: right;
+  line-height: 1.2;
+}
+
+.dash-topbar__user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.dash-topbar__user-email {
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.dash-topbar__logout {
+  font-size: 13px;
+  color: var(--brand-red);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dash-topbar__logout:hover {
+  text-decoration: underline;
+}
+
+/* Content --------------------------------------------------------------- */
+.dash-content {
+  flex: 1;
+  padding: 28px 32px;
+}
+
+.dash-greeting__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.dash-greeting__subtitle {
+  margin: 6px 0 0;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+/* Stat cards ------------------------------------------------------------ */
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.dash-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash-card__chip {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: #eef2ff;
+}
+
+.dash-card__chip--blue { background: #e0edff; }
+.dash-card__chip--purple { background: #efe6ff; }
+.dash-card__chip--amber { background: #fff2d9; }
+.dash-card__chip--green { background: #dcf5e6; }
+
+.dash-card__number {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.dash-card__label {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.dash-card__link {
+  color: var(--brand-red);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.dash-card__link:hover {
+  text-decoration: underline;
+}
+
+/* Panels ---------------------------------------------------------------- */
+.dash-panels {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.dash-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 12px;
+}
+
+.dash-panel__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.dash-panel__view-all {
+  color: var(--brand-red);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dash-panel__view-all:hover {
+  text-decoration: underline;
+}
+
+.dash-panel__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dash-panel__empty {
+  color: var(--color-muted);
+  font-size: 14px;
+  text-align: center;
+  margin: 0;
+}
+
+/* Responsive ------------------------------------------------------------ */
+@media (max-width: 1000px) {
+  .dash-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dash-panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dash-cards {
+    grid-template-columns: 1fr;
+  }
+  .dash-topbar__helper {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Login card (GAR ITSM Self-Service sign-in)
+   --------------------------------------------------------------------------- */
+.login-screen {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing);
+  background: var(--color-bg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-card__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-card__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--brand-red-strong);
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+
+.login-card__brand-title {
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.1;
+}
+
+.login-card__brand-subtitle {
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+
+.login-card__heading {
+  margin: 6px 0 0;
+  color: var(--brand-red);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.login-card__subtitle {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.login-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-card__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.login-card__select {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.login-card__select:focus {
+  outline: none;
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.login-card__submit {
+  width: 100%;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--brand-red);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.login-card__submit:hover:not(:disabled) {
+  background: var(--brand-red-strong);
+}
+
+.login-card__submit:disabled {
+  background: #d6a29c;
+  color: #f3e9e7;
+  cursor: not-allowed;
+}
+
+.login-card__divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.login-card__divider::before,
+.login-card__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.login-card__sso {
+  width: 100%;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.login-card__sso:hover {
+  background: var(--color-bg);
+}
+
+/* ---------------------------------------------------------------------------
+   Group list — rectangular group cards
+   --------------------------------------------------------------------------- */
+.group-list-view__groups {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.group-list-view__group {
+  display: flex;
+}
+
+.group-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.group-card:hover {
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+  border-color: #c3c9d2;
+  transform: translateY(-1px);
+}
+
+.group-card:focus-visible {
+  outline: none;
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.14);
+}
+
+.group-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.group-card__icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.group-card__name {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.group-card__meta {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.group-card__more {
+  align-self: flex-end;
+  margin-top: auto;
+  color: var(--brand-red);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+   Group detail — member cards + status pills
+   --------------------------------------------------------------------------- */
+.group-detail__meta {
+  margin: 4px 0 8px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.group-detail__section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 18px 0 10px;
+}
+
+.group-detail__members.member-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.member-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.member-card--leader {
+  border-left: 4px solid var(--brand-red);
+  background: #fdf6f5;
+}
+
+.member-card__avatar {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(192, 57, 43, 0.12);
+  color: var(--brand-red);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-card__body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.member-card__name {
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.member__leader-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--brand-red);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.member__status {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.member__status-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.member__status--active {
+  background: #dcf5e6;
+  color: #15803d;
+}
+
+.member__status--inactive {
+  background: #fef0d9;
+  color: #b45309;
+}
+
+@media (max-width: 520px) {
+  .member-card {
+    flex-wrap: wrap;
+  }
+  .member__status {
+    margin-left: 52px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Group list — "Request Inactive Status" action bar (between heading & list).
+   --------------------------------------------------------------------------- */
+.group-list-view__actions {
+  display: flex;
+  justify-content: flex-start;
+  margin: 12px 0 20px;
+}
+
+.group-list-view__request-btn {
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--brand-red);
+  border: 0;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.group-list-view__request-btn:hover {
+  background: var(--brand-red-strong);
+}
+
+.group-list-view__request-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.14);
+}
+
+/* ---------------------------------------------------------------------------
+   Employee Inactive Request form (requestFormView.js).
+   --------------------------------------------------------------------------- */
+.req-view {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--spacing);
+}
+
+.req-form__back {
+  font: inherit;
+  font-weight: 600;
+  color: var(--brand-red);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.req-form__back:hover {
+  text-decoration: underline;
+}
+
+.req-form__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.req-form__subtitle {
+  margin: 4px 0 20px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.req-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Read-only profile info panel. */
+.req-profile {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px 20px;
+  padding: 16px 18px;
+  background: #f5f6f8;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.req-profile__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.req-profile__label {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.req-profile__value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Stacked field: label above control. */
+.req-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.req-field__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.req-field__required {
+  color: var(--brand-red);
+}
+
+.req-field__control {
+  font: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.req-field__control:read-only {
+  background: #f5f6f8;
+  color: var(--color-muted);
+}
+
+textarea.req-field__control {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.req-field__control:focus {
+  outline: none;
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.req-form__submit {
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--brand-red);
+  border: 0;
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.15s ease;
+}
+
+.req-form__submit:hover {
+  background: var(--brand-red-strong);
+}
+
+.req-form__note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-muted);
+}

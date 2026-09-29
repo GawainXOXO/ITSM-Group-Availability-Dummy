@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Kiro spec / planning files (keep out of the pushed repo)
+.kiro/
+.config.kiro
+**/.config.kiro
+**/requirements.md
+**/design.md
+**/tasks.md
+**/tasks.meta.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

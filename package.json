@@ -1,0 +1,16 @@
+{
+  "name": "group-availability-mockup",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Self-contained static SPA mockup demonstrating a Group Availability feature from three user points of view.",
+  "scripts": {
+    "test": "vitest --run"
+  },
+  "devDependencies": {
+    "fast-check": "^3.23.1",
+    "jsdom": "^25.0.1",
+    "loupe": "^3.2.1",
+    "vitest": "^2.1.8"
+  }
+}
